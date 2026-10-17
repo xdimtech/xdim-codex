@@ -40,11 +40,14 @@ pub(crate) fn with_border_with_inner_width(
     out
 }
 
+/// Product name shown in the session header, status card, and plain-text transcript.
+pub(crate) const BRAND_NAME: &str = "xdim-codex";
+
 /// Brand title shared by the session header and the status card; each owns its own indentation.
 pub(crate) fn codex_title(version: &str) -> Vec<Span<'static>> {
     vec![
         ">_ ".fg(accent_color()),
-        "OpenAI Codex".bold(),
+        BRAND_NAME.bold(),
         format!(" (v{version})").dim(),
     ]
 }
@@ -383,7 +386,7 @@ impl HistoryCell for SessionHeaderHistoryCell {
 
     fn raw_lines(&self) -> Vec<Line<'static>> {
         let mut lines = vec![
-            Line::from(format!("OpenAI Codex (v{})", self.version)),
+            Line::from(format!("{BRAND_NAME} (v{})", self.version)),
             Line::from(format!(
                 "model: {}{}",
                 self.model,
